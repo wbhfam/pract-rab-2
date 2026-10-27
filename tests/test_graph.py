@@ -4,11 +4,11 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from src.config import load_config
 from src.graph import PackageRepository, TestRepository, analyze, build_graph
 from src.requirements import parse_requirement
-from unittest.mock import patch
 
 
 EXAMPLES = Path(__file__).resolve().parents[1] / "examples"

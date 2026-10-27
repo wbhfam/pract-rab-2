@@ -57,10 +57,17 @@ def validate_repository(data, base):
             raise ValueError("repository: тестовый файл не найден")
         data["repository"] = str(path)
         return
+    validate_http_url(value)
+
+
+def validate_http_url(value):
+    """Отклонить неверную схему, пробелы и недопустимые части URL."""
+    if any(character.isspace() for character in value):
+        raise ValueError("repository: пробелы в URL запрещены")
     parts = urlsplit(value)
     if parts.scheme not in {"http", "https"} or not parts.hostname:
         raise ValueError("repository: нужен HTTP(S) URL репозитория")
-    if parts.query or parts.fragment or parts.username or parts.password:
+    if any((parts.query, parts.fragment, parts.username, parts.password)):
         raise ValueError(
             "repository: query, fragment и учётные данные запрещены"
         )

@@ -38,7 +38,11 @@ class PyPIRepository:
         info = metadata.get("info")
         if not isinstance(info, dict):
             raise ValueError("В метаданных отсутствует info")
-        if normalize(info.get("name", "")) != normalize(name):
+        if not isinstance(info.get("name"), str):
+            raise ValueError("info.name: ожидается строка")
+        if not isinstance(info.get("version"), str):
+            raise ValueError("info.version: ожидается строка")
+        if normalize(info["name"]) != normalize(name):
             raise ValueError("Имя в ответе репозитория не совпадает с запросом")
         if Version(info.get("version", "")) != Version(version):
             raise ValueError("Версия в ответе не совпадает с запросом")
@@ -52,15 +56,8 @@ class PyPIRepository:
         releases = self.fetch(requirement.name).get("releases")
         if not isinstance(releases, dict):
             raise ValueError("В метаданных отсутствует releases")
-        candidates = []
-        for text, files in releases.items():
-            try:
-                version = Version(text)
-            except ValueError:
-                continue
-            if satisfies(text, requirement.specifiers) and usable_files(files):
-                candidates.append(version)
-        stable = [item for item in candidates if not item.pre and not item.dev]
+        candidates = candidate_versions(releases, requirement.specifiers)
+        stable = [item for item in candidates if is_stable(item)]
         selected = stable or candidates
         if not selected:
             raise ValueError(f"Нет подходящей версии {requirement.name}")
@@ -101,3 +98,21 @@ def usable_files(files):
         ):
             return True
     return False
+
+
+def is_stable(version):
+    """Определить, является ли версия стабильной."""
+    return not version.pre and not version.dev
+
+
+def candidate_versions(releases, specifiers):
+    """Отобрать версии по ограничениям, Requires-Python и yanked."""
+    result = []
+    for text, files in releases.items():
+        try:
+            version = Version(text)
+        except ValueError:
+            continue
+        if satisfies(text, specifiers) and usable_files(files):
+            result.append(version)
+    return result

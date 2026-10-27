@@ -5,13 +5,16 @@ import sys
 
 from src.config import load_config
 from src.graph import analyze
-from src.order import loading_order
+from src.visualization import to_ascii, to_dot
 
 
 def execute(config):
-    """Этап 4: вывести порядок загрузки зависимостей и корневого пакета."""
+    """Этап 5: вывести DOT и, если указано в TOML, ASCII-дерево."""
     root, graph = analyze(config)
-    print("\n".join(loading_order(root, graph)))
+    print(to_dot(graph))
+    if config.ascii_tree:
+        print()
+        print(to_ascii(root, graph))
 
 
 def main():

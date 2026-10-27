@@ -3,9 +3,6 @@
 from functools import total_ordering
 import re
 
-from src.config import VERSION_PATTERN
-
-
 PARTS = re.compile(
     r"v?(?:(?P<epoch>[0-9]+)!)?"
     r"(?P<release>[0-9]+(?:\.[0-9]+)*)"
@@ -21,6 +18,7 @@ PRE_ORDER = {
     "c": 2, "rc": 2, "pre": 2, "preview": 2,
 }
 INFINITY = float("inf")
+MIN_COMPATIBLE_COMPONENTS = 2
 
 
 @total_ordering
@@ -64,16 +62,21 @@ def make_key(version, parts):
     release = list(version.release)
     while release and not release[-1]:
         release.pop()
-    pre = (INFINITY, 0)
-    if version.pre:
-        pre = (PRE_ORDER[version.pre.lower()], int(parts["pre_num"] or "0"))
-    elif version.dev and not version.post:
-        pre = (-INFINITY, 0)
+    pre = prerelease_key(version, parts)
     post = int(parts["post_num"] or parts["post_short"] or "0")
     post = post if version.post else -INFINITY
     dev = int(parts["dev_num"] or "0") if version.dev else INFINITY
     local = local_key(version.local)
     return version.epoch, tuple(release), pre, post, dev, local
+
+
+def prerelease_key(version, parts):
+    """Выбрать положение prerelease относительно dev и final."""
+    if version.pre:
+        return PRE_ORDER[version.pre.lower()], int(parts["pre_num"] or "0")
+    if version.dev and not version.post:
+        return -INFINITY, 0
+    return INFINITY, 0
 
 
 def local_key(local):
@@ -134,9 +137,8 @@ def matches_one(version, operator, target):
 
 def compatible(actual, expected):
     """Проверить ~= с сохранением всех release-сегментов кроме последнего."""
-    if len(expected.release) < len((0, 0)):
+    if len(expected.release) < MIN_COMPATIBLE_COMPONENTS:
         raise ValueError("Для ~= нужны минимум два компонента версии")
-    prefix = expected.text.split("+")[0]
     release = ".".join(map(str, expected.release[:-1]))
     prefix = f"{expected.epoch}!{release}.*"
     return actual >= expected and prefix_matches(actual, prefix)

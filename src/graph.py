@@ -22,7 +22,9 @@ class TestRepository:
         nodes = set(self.graph)
         references = {child for items in self.graph.values() for child in items}
         if not references <= nodes:
-            raise ValueError("В тестовом графе есть ссылки на неизвестные пакеты")
+            raise ValueError(
+                "В тестовом графе есть ссылки на неизвестные пакеты"
+            )
 
     def dependencies(self, node):
         """Вернуть прямые зависимости тестового пакета."""
@@ -34,7 +36,9 @@ class TestRepository:
 def validate_test_node(name, children):
     """Проверить имя пакета и список имён его зависимостей."""
     if not re.fullmatch(r"[A-Z]+", name):
-        raise ValueError("Имена тестовых пакетов: только большие латинские буквы")
+        raise ValueError(
+            "Имена тестовых пакетов: только большие латинские буквы"
+        )
     if not isinstance(children, list):
         raise ValueError(f"Зависимости {name} должны быть массивом")
     for child in children:
