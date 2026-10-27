@@ -5,13 +5,13 @@ import sys
 
 from src.config import load_config
 from src.graph import analyze
+from src.order import loading_order
 
 
 def execute(config):
-    """Этап 3: показать списки смежности достижимого графа."""
-    _, graph = analyze(config)
-    for node, children in graph.items():
-        print(f"{node}: {', '.join(children)}")
+    """Этап 4: вывести порядок загрузки зависимостей и корневого пакета."""
+    root, graph = analyze(config)
+    print("\n".join(loading_order(root, graph)))
 
 
 def main():

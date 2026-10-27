@@ -1,0 +1,16 @@
+{
+  "info": {
+    "name": "tzdata",
+    "version": "2026.5",
+    "requires_dist": null,
+    "requires_python": ">=2"
+  },
+  "releases": {
+    "2026.5": [
+      {
+        "yanked": false,
+        "requires_python": ">=2"
+      }
+    ]
+  }
+}
