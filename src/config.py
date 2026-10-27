@@ -61,7 +61,9 @@ def validate_repository(data, base):
     if parts.scheme not in {"http", "https"} or not parts.hostname:
         raise ValueError("repository: нужен HTTP(S) URL репозитория")
     if parts.query or parts.fragment or parts.username or parts.password:
-        raise ValueError("repository: query, fragment и учётные данные запрещены")
+        raise ValueError(
+            "repository: query, fragment и учётные данные запрещены"
+        )
     try:
         parts.port
     except ValueError as error:

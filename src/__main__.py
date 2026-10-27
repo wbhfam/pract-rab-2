@@ -1,16 +1,19 @@
 """Минимальное CLI: путь к TOML является единственным аргументом."""
 
 import argparse
-from dataclasses import asdict
 import sys
 
 from src.config import load_config
+from src.repository import PyPIRepository
 
 
 def execute(config):
-    """Этап 1: вывести все настраиваемые параметры как ключ=значение."""
-    for key, value in asdict(config).items():
-        print(f"{key}={value}")
+    """Этап 2: вывести прямые зависимости заданной версии пакета."""
+    if config.test_mode:
+        raise ValueError("Тестовый репозиторий реализуется на этапе 3")
+    repository = PyPIRepository(config.repository)
+    for dependency in repository.dependencies(config.package, config.version):
+        print(dependency.name)
 
 
 def main():

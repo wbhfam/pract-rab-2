@@ -1,0 +1,23 @@
+{
+  "info": {
+    "name": "idna",
+    "version": "3.20",
+    "requires_dist": [
+      "ruff >= 0.16.0 ; extra == \"all\"",
+      "mypy >= 1.11.2 ; extra == \"all\"",
+      "ty >= 0.0.37 ; extra == \"all\"",
+      "pytest >= 8.3.2 ; extra == \"all\"",
+      "hypothesis >= 6.141.1 ; extra == \"all\"",
+      "coverage >= 7.10.0 ; extra == \"all\""
+    ],
+    "requires_python": ">=3.9"
+  },
+  "releases": {
+    "3.20": [
+      {
+        "yanked": false,
+        "requires_python": ">=3.9"
+      }
+    ]
+  }
+}

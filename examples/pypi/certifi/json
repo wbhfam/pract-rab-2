@@ -1,0 +1,16 @@
+{
+  "info": {
+    "name": "certifi",
+    "version": "2026.10.19",
+    "requires_dist": null,
+    "requires_python": ">=3.7"
+  },
+  "releases": {
+    "2026.10.19": [
+      {
+        "yanked": false,
+        "requires_python": ">=3.7"
+      }
+    ]
+  }
+}

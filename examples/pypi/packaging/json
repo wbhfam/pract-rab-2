@@ -1,0 +1,16 @@
+{
+  "info": {
+    "name": "packaging",
+    "version": "26.3",
+    "requires_dist": null,
+    "requires_python": ">=3.9"
+  },
+  "releases": {
+    "26.3": [
+      {
+        "yanked": false,
+        "requires_python": ">=3.9"
+      }
+    ]
+  }
+}

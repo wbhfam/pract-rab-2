@@ -1,0 +1,16 @@
+{
+  "info": {
+    "name": "six",
+    "version": "1.17.0",
+    "requires_dist": null,
+    "requires_python": ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
+  },
+  "releases": {
+    "1.17.0": [
+      {
+        "yanked": false,
+        "requires_python": ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
+      }
+    ]
+  }
+}

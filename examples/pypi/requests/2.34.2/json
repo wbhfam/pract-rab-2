@@ -1,0 +1,15 @@
+{
+  "info": {
+    "name": "requests",
+    "version": "2.34.2",
+    "requires_dist": [
+      "charset_normalizer<4,>=2",
+      "idna<4,>=2.5",
+      "urllib3<3,>=1.26",
+      "certifi>=2023.5.7",
+      "PySocks!=1.5.7,>=1.5.6; extra == \"socks\"",
+      "chardet<8,>=3.0.2; extra == \"use-chardet-on-py3\""
+    ],
+    "requires_python": ">=3.10"
+  }
+}
