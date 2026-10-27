@@ -4,16 +4,14 @@ import argparse
 import sys
 
 from src.config import load_config
-from src.repository import PyPIRepository
+from src.graph import analyze
 
 
 def execute(config):
-    """Этап 2: вывести прямые зависимости заданной версии пакета."""
-    if config.test_mode:
-        raise ValueError("Тестовый репозиторий реализуется на этапе 3")
-    repository = PyPIRepository(config.repository)
-    for dependency in repository.dependencies(config.package, config.version):
-        print(dependency.name)
+    """Этап 3: показать списки смежности достижимого графа."""
+    _, graph = analyze(config)
+    for node, children in graph.items():
+        print(f"{node}: {', '.join(children)}")
 
 
 def main():
