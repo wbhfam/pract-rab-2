@@ -1,0 +1,8 @@
+{
+  "info": {
+    "name": "tzdata",
+    "version": "2026.5",
+    "requires_dist": null,
+    "requires_python": ">=2"
+  }
+}
