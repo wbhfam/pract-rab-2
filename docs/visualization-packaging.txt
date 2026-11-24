@@ -1,0 +1,5 @@
+digraph dependencies {
+  "packaging==26.3";
+}
+
+packaging==26.3

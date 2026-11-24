@@ -1,16 +1,20 @@
 """Минимальное CLI: путь к TOML является единственным аргументом."""
 
 import argparse
-from dataclasses import asdict
 import sys
 
 from src.config import load_config
+from src.graph import analyze
+from src.visualization import to_ascii, to_dot
 
 
 def execute(config):
-    """Этап 1: вывести все настраиваемые параметры как ключ=значение."""
-    for key, value in asdict(config).items():
-        print(f"{key}={value}")
+    """Этап 5: вывести DOT и, если указано в TOML, ASCII-дерево."""
+    root, graph = analyze(config)
+    print(to_dot(graph))
+    if config.ascii_tree:
+        print()
+        print(to_ascii(root, graph))
 
 
 def main():
