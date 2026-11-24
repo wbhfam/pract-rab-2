@@ -1,0 +1,16 @@
+{
+  "info": {
+    "name": "charset-normalizer",
+    "version": "3.5.2",
+    "requires_dist": null,
+    "requires_python": ">=3.7"
+  },
+  "releases": {
+    "3.5.2": [
+      {
+        "yanked": false,
+        "requires_python": ">=3.7"
+      }
+    ]
+  }
+}

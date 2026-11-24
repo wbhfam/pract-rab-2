@@ -1,0 +1,5 @@
+package = "requests"
+repository = "https://pypi.org/pypi"
+test_mode = false
+version = "2.34.2"
+ascii_tree = true

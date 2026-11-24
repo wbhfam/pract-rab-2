@@ -1,0 +1,5 @@
+package = "packaging"
+repository = "https://pypi.org/pypi"
+test_mode = false
+version = "26.3"
+ascii_tree = true

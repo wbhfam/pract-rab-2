@@ -1,0 +1,5 @@
+package = "requests"
+repository = "http://127.0.0.1:8765/pypi"
+test_mode = false
+version = "2.34.2"
+ascii_tree = true
